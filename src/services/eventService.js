@@ -6,13 +6,9 @@ export const eventService = {
       const response = await api.get("/events");
       console.log("getAllEvents response:", response.data);
 
-      if (response.data.events && Array.isArray(response.data.events)) {
-        return response.data.events;
-      } else if (Array.isArray(response.data)) {
-        return response.data;
-      } else if (response.data.data && Array.isArray(response.data.data)) {
-        return response.data.data;
-      }
+      if (Array.isArray(response.data.events)) return response.data.events;
+      if (Array.isArray(response.data)) return response.data;
+      if (Array.isArray(response.data.data)) return response.data.data;
       return [];
     } catch (error) {
       console.error("getAllEvents error:", error);
@@ -81,13 +77,8 @@ export const eventService = {
 
   approveEvent: async (eventId) => {
     try {
-      try {
-        const response = await api.patch(`/events/${eventId}/approve`, {});
-        return response.data.event || response.data;
-      } catch {
-        const response = await api.post(`/events/${eventId}/approve`, {});
-        return response.data.event || response.data;
-      }
+      const response = await api.patch(`/events/${eventId}/approve`, {});
+      return response.data.event || response.data;
     } catch (error) {
       throw error.response?.data || error;
     }
@@ -95,13 +86,8 @@ export const eventService = {
 
   rejectEvent: async (eventId) => {
     try {
-      try {
-        const response = await api.patch(`/events/${eventId}/reject`, {});
-        return response.data.event || response.data;
-      } catch {
-        const response = await api.post(`/events/${eventId}/reject`, {});
-        return response.data.event || response.data;
-      }
+      const response = await api.patch(`/events/${eventId}/reject`, {});
+      return response.data.event || response.data;
     } catch (error) {
       throw error.response?.data || error;
     }
@@ -118,29 +104,18 @@ export const eventService = {
 
   getEventsByStatus: async (status) => {
     try {
-      const url = `/events/status/${status}`;
-      const response = await api.get(url);
+      const response = await api.get(`/events?status=${status}`);
 
-      if (response.data.events) return response.data.events;
+      if (Array.isArray(response.data.events)) return response.data.events;
       if (Array.isArray(response.data)) return response.data;
-      if (response.data.data) return response.data.data;
-      return [];
-    } catch {
-      try {
-        const fallbackUrl = `/events?status=${status}`;
-        const response = await api.get(fallbackUrl);
+      if (Array.isArray(response.data.data)) return response.data.data;
 
-        if (response.data.events) return response.data.events;
-        if (Array.isArray(response.data)) return response.data;
-        if (response.data.data) return response.data.data;
-        return [];
-      } catch {
-        return [];
-      }
+      return [];
+    } catch (error) {
+      return [];
     }
   },
 
   getApprovedEvents: async () => eventService.getEventsByStatus("approved"),
-
   getPendingEvents: async () => eventService.getEventsByStatus("pending"),
 };
