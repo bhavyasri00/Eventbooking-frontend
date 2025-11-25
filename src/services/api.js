@@ -1,6 +1,17 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api";
+// Determine API URL based on environment
+let API_URL;
+
+if (import.meta.env.MODE === "production") {
+  // Production - use Render backend
+  API_URL = "https://eventbooking-backend-nmlq.onrender.com/api";
+} else {
+  // Development - use localhost
+  API_URL = "http://localhost:5000/api";
+}
+
+console.log("API URL:", API_URL, "Mode:", import.meta.env.MODE);
 
 const api = axios.create({
   baseURL: API_URL,
