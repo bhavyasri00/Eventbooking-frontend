@@ -111,7 +111,7 @@ export default function Navbar() {
         </div>
       )}
 
-      <nav className="bg-white text-gray-900 font-semibold shadow-lg fixed top-0 left-0 right-0 z-50">
+      <nav className="bg-white text-gray-900 font-semibold shadow-lg fixed top-0 left-0 right-0 z-50 backdrop-blur-0">
         <div className="max-w-screen-xl mx-auto px-6">
           <div className="flex justify-between items-center h-20">
             {/* Logo */}
@@ -119,36 +119,36 @@ export default function Navbar() {
               <Logo />
             </div>
 
-            <div className="hidden md:flex space-x-8 items-center flex-1 justify-center">
+            <div className="hidden md:flex space-x-8 items-center flex-1 justify-center opacity-100">
               <a
                 href="#home"
-                className="font-semibold text-black hover:text-gray-700 transition-all duration-200"
+                className="font-semibold text-gray-900 hover:text-red-600 transition-all duration-200 opacity-100"
               >
                 Home
               </a>
               {isLoggedIn && (
                 <a
                   href="/my-bookings"
-                  className="font-semibold text-black hover:text-gray-700 transition-all duration-200"
+                  className="font-semibold text-gray-900 hover:text-red-600 transition-all duration-200 opacity-100"
                 >
                   My Bookings
                 </a>
               )}
               <a
                 href="#events"
-                className="font-semibold text-black hover:text-gray-700 transition-all duration-200"
+                className="font-semibold text-gray-900 hover:text-red-600 transition-all duration-200 opacity-100"
               >
                 Events
               </a>
               <a
                 href="#gallery"
-                className="font-semibold text-black hover:text-gray-700 transition-all duration-200"
+                className="font-semibold text-gray-900 hover:text-red-600 transition-all duration-200 opacity-100"
               >
                 Gallery
               </a>
               <a
                 href="#contact"
-                className="font-semibold text-black hover:text-gray-700 transition-all duration-200"
+                className="font-semibold text-gray-900 hover:text-red-600 transition-all duration-200 opacity-100"
               >
                 Contact Us
               </a>

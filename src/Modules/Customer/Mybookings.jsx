@@ -151,10 +151,9 @@ export default function MyBookings() {
   const fetchUserBookings = async (userId) => {
     try {
       const data = await bookingService.getCustomerBookings(userId);
-      setBookings(data);
+      setBookings(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error("Failed to fetch bookings:", error);
-      alert("Failed to load bookings. Please try again.");
       setBookings([]);
     } finally {
       setLoading(false);

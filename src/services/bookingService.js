@@ -43,9 +43,13 @@ export const bookingService = {
   getCustomerBookings: async (customerId) => {
     try {
       const response = await api.get(`/bookings/customer/${customerId}`);
-      return response.data.bookings;
+      return (
+        response.data.bookings || response.data.data || response.data || []
+      );
     } catch (error) {
-      throw error.response?.data || error;
+      console.error("Error fetching customer bookings:", error);
+      // Return empty array instead of throwing to prevent page crash
+      return [];
     }
   },
 
